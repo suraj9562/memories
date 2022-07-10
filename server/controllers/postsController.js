@@ -1,10 +1,15 @@
 const catchAsync = require("./../utils/catchAsync");
+const Post = require("./../models/postModel");
 
 // get all posts
 exports.getPosts = catchAsync(async (req, res, next) => {
+  const posts = await Post.find();
+
   res.status(200).json({
     status: "success",
-    data: {},
+    results: posts.length,
+    time: req.requestTime,
+    data: { posts },
   });
 });
 
@@ -26,9 +31,15 @@ exports.getPost = catchAsync(async (req, res, next) => {
 
 // create new post
 exports.createPost = catchAsync(async (req, res, next) => {
-  res.status(200).json({
+  const data = req.body;
+  const newPost = await Post.create(data);
+
+  res.status(201).json({
     status: "success",
-    data: {},
+    time: req.requestTime,
+    data: {
+      newPost,
+    },
   });
 });
 
