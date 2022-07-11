@@ -1,0 +1,45 @@
+.container {
+  background-color: #fff;
+  margin-left: 15%;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container .title {
+  font-weight: 600;
+  font-size: 2.2rem;
+  line-height: 3.3rem;
+  color: #243740;
+}
+
+.container form {
+  margin-top: 2rem;
+}
+
+.container .inputDecoration {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+
+  font-size: 1.5rem;
+  color: #243740;
+  letter-spacing: 1px;
+}
+
+.container textarea {
+  resize: none;
+}
+
+.container .button {
+  cursor: pointer;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: blanchedalmond;
+
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  font-family: "Inter-Medium";
+  color: #243740;
+}
