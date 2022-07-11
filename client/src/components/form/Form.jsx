@@ -33,7 +33,7 @@ function Form() {
         <Button btnText="Submit" />
         <Button btnText="Clear" />
       </form>
-    </div>
+    </div> 
   );
 }
 
