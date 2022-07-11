@@ -1,11 +1,12 @@
 
+import Styles from "./posts.module.css"
 
-function posts() {
+function Posts() {
   return (
-    <div>
-      
+    <div className={Styles.container}> 
+        <h1>posts</h1>
     </div>
   )
 }
 
-export default posts
+export default Posts
