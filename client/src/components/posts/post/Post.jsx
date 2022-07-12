@@ -3,18 +3,15 @@ import likeIcon from "./../../../assets/images/like.png";
 import deleteIcon from "./../../../assets/images/delete.png";
 import menuIcon from "./../../../assets/images/menu.svg";
 
-function Post() {
+function Post({ post }) {
   return (
     <div className={Styles.card}>
       <div className={Styles.image}>
-        <img
-          src="https://www.freecodecamp.org/news/content/images/2020/05/feature.jpg"
-          alt="img"
-        />
+        <img src={post.selectedFile.url} alt="img" />
         <div className={Styles.overlay}>
           <div className={Styles.titleContainer}>
-            <div className={Styles.title}>Pune</div>
-            <div className={Styles.subtitle}>2 Months Ago</div>
+            <div className={Styles.title}>{post.creator}</div>
+            <div className={Styles.subtitle}>{post.createdAt}</div>
           </div>
 
           <img src={menuIcon} alt="menu" />
@@ -22,17 +19,14 @@ function Post() {
       </div>
       <div className={Styles.content}>
         <div className={Styles.tagPill}>
-          <span>abc</span>
+          {post.tags && post.tags.map((tag, i) => <span key={i}>{tag}</span>)}
         </div>
-        <div className={Styles.title}>Lorem ipsum dolor sit amet.</div>
-        <div className={Styles.desc}>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-          beatae voluptatem asperiores impedit culpa ratione, eaque itaque
-          molestias dolorum tempora!
-        </div>
+        <div className={Styles.title}>{post.title}</div>
+        <div className={Styles.desc}>{post.message}</div>
         <div className={Styles.cardFooter}>
           <div className={Styles.like}>
             <img src={likeIcon} alt="like" />
+            <span>{post.likeCount}</span>
           </div>
           <div className={Styles.delete}>
             <img src={deleteIcon} alt="like" />

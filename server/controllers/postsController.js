@@ -1,5 +1,6 @@
 const catchAsync = require("./../utils/catchAsync");
 const Post = require("./../models/postModel");
+const cloudinary = require("cloudinary").v2;
 
 // get all posts
 exports.getPosts = catchAsync(async (req, res, next) => {
@@ -31,8 +32,26 @@ exports.getPost = catchAsync(async (req, res, next) => {
 
 // create new post
 exports.createPost = catchAsync(async (req, res, next) => {
-  const data = req.body;
-  const newPost = await Post.create(data);
+  const { creator, title, message, tags, selectedFile } = req.body;
+  console.log(tags);
+  const myUploadedImg = await cloudinary.uploader.upload(selectedFile, {
+    folder: "memories",
+    quality: "auto",
+    fetch_format: "auto",
+  });
+
+  console.log(myUploadedImg);
+
+  const newPost = await Post.create({
+    creator,
+    title,
+    message,
+    tags,
+    selectedFile: {
+      public_id: myUploadedImg.public_id,
+      url: myUploadedImg.secure_url,
+    },
+  });
 
   res.status(201).json({
     status: "success",

@@ -7,7 +7,14 @@ const postSchema = new schema({
   message: String,
   creator: String,
   tags: [String],
-  selectedFile: String,
+  selectedFile: {
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
   likeCount: {
     type: Number,
     default: 0,

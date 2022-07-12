@@ -2,10 +2,10 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
-import postsReducer from "./reducers/postsReducer";
+import { getPostsReducer } from "./reducers/postsReducer";
 
 const reducer = combineReducers({
-  posts: postsReducer,
+  posts: getPostsReducer,
 });
 
 const initialState = {};

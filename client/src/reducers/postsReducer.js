@@ -1,4 +1,4 @@
-const postsReducers = (posts = [], action) => {
+export const getPostsReducer = (posts = [], action) => {
   switch (action.type) {
     case "ALL_PRODUCT_REQUEST":
       return {
@@ -6,10 +6,28 @@ const postsReducers = (posts = [], action) => {
         posts: [],
       };
 
+    case "CREATE_POST_REQUEST":
+      return {
+        posts: posts.posts,
+      };
+
     case "ALL_PRODUCT_REQUEST_SUCCESS":
       return {
         loading: false,
-        posts: action.payload.data,
+        posts: action.payload.data.posts,
+      };
+
+    case "CREATE_POST_SUCCESS":
+      return {
+        loading: false,
+        posts: [...posts.posts, action.payload.data.newPost],
+        newPost: action.payload.data.newPost,
+      };
+
+    case "CREATE_POST_FAIL":
+      return {
+        posts: posts.posts,
+        errorInCreating: action.payload,
       };
 
     case "ALL_PRODUCT_REQUEST_FAIL":
@@ -22,5 +40,3 @@ const postsReducers = (posts = [], action) => {
       return posts;
   }
 };
-
-export default postsReducers;

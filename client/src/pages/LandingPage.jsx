@@ -5,13 +5,13 @@ import Posts from "../components/posts/Posts";
 import Styles from "./landingPage.module.css";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getPosts } from "../actions/postsActions";
+import { getPostsAction } from "../actions/postsActions";
 
 function LandingPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPostsAction());
   }, [dispatch]);
 
   return (

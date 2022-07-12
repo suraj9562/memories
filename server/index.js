@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
+const cloudinary = require("cloudinary").v2;
 
 // importing custom modules
 const postRoutes = require("./routes/postsRoutes");
@@ -58,6 +59,13 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => console.log("DB connection successful 📅"));
+
+// cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // rendering app on given port
 const server = app.listen(port, () => {
