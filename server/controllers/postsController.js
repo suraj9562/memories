@@ -127,7 +127,31 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   const id = req.params.id;
 
   const post = await Post.findByIdAndDelete(id);
-  res.status(204).json({
+  res.status(200).json({
     status: "success",
+    data: post,
+  });
+});
+
+exports.increaseLikeCountByOne = catchAsync(async (req, res, next) => {
+  const id = req.params.id;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return next(new AppError("Post not found", 404));
+  }
+
+  const updatedPost = await Post.findByIdAndUpdate(
+    id,
+    { likeCount: post.likeCount + 1 },
+    { new: true }
+  );
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      updatedPost,
+    },
   });
 });

@@ -1,4 +1,10 @@
-import { createPost, fetchAllProduct, getPost, updatePost } from "../api";
+import {
+  createPost,
+  deletePost,
+  fetchAllProduct,
+  getPost,
+  updatePost,
+} from "../api";
 
 export const getPostsAction = () => async (dispatch) => {
   try {
@@ -80,3 +86,24 @@ export const getPostAction = (id) => async (dispatch) => {
     });
   }
 };
+
+export const deletePostAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "DELETE_POST_REQUEST" });
+
+    const response = await deletePost(id);
+
+    dispatch({
+      type: "DELETE_POST_SUCCESS",
+      payload: response.data.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "DELETE_POST_FAIL",
+      payload: error,
+    });
+  }
+};
+
+

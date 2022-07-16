@@ -9,6 +9,7 @@ export const getPostsReducer = (posts = [], action) => {
     case "UPDATE_POST_REQUEST":
     case "GET_POST_REQUEST":
     case "CREATE_POST_REQUEST":
+    case "DELETE_POST_REQUEST":
       return {
         posts: posts.posts,
       };
@@ -38,6 +39,11 @@ export const getPostsReducer = (posts = [], action) => {
         updatedPost: action.payload.data,
       };
 
+    case "DELETE_POST_SUCCESS":
+      return {
+        posts: posts.posts.filter((post) => post._id !== action.payload._id),
+      };
+
     case "CREATE_POST_FAIL":
       return {
         posts: posts.posts,
@@ -51,6 +57,12 @@ export const getPostsReducer = (posts = [], action) => {
       };
 
     case "UPDATE_POST_FAIL":
+      return {
+        posts: posts.posts,
+        errorInUpdating: action.payload,
+      };
+
+    case "DELETE_POST_FAIL":
       return {
         posts: posts.posts,
         errorInUpdating: action.payload,

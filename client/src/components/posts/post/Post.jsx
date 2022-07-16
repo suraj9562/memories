@@ -3,8 +3,19 @@ import likeIcon from "./../../../assets/images/like.png";
 import deleteIcon from "./../../../assets/images/delete.png";
 import menuIcon from "./../../../assets/images/menu.svg";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import {
+  deletePostAction,
+  getPostsAction,
+} from "../../../actions/postsActions";
 
 function Post({ post, setSelectedId }) {
+  const dispatch = useDispatch();
+
+  const clickDelete = (id) => {
+    dispatch(deletePostAction(id));
+  };
+
   return (
     <div className={Styles.card}>
       <div className={Styles.image}>
@@ -37,7 +48,12 @@ function Post({ post, setSelectedId }) {
             <img src={likeIcon} alt="like" />
             <span>{post.likeCount}</span>
           </div>
-          <div className={Styles.delete}>
+          <div
+            className={Styles.delete}
+            onClick={() => {
+              clickDelete(post._id);
+            }}
+          >
             <img src={deleteIcon} alt="like" />
           </div>
         </div>

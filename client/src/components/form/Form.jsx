@@ -5,9 +5,11 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createPostAction,
+  deletePostAction,
   getPostAction,
   updatePostAction,
 } from "../../actions/postsActions";
+import { fetchAllProduct } from "../../api";
 
 function Form({ selectedId, setSelectedId }) {
   const dispatch = useDispatch();
