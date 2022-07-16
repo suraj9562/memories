@@ -1,19 +1,48 @@
-.container{
-    padding: 5rem 20rem;
+.container {
+  padding: 5rem 20rem;
 }
 
-.container .grid{
-    padding: 2rem;
-    display: flex;
-    justify-content: space-between;
+.container .grid {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
-.container .grid .posts{
-    flex: 65%;
+.container .grid .posts {
+  flex: 65%;
 }
 
-.container .grid .form{
-    flex: 35%;
+.container .grid .form {
+  flex: 35%;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 3rem 10rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem 2rem;
+  }
+
+  .container .grid .posts {
+    flex: 100%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .container {
+    padding: 1rem 1.5rem;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .container .grid {
+    margin-top: 2rem;
+    padding: 0;
+  }
 }

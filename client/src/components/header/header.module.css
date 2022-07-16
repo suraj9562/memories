@@ -1,18 +1,30 @@
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 
-    background-color: #fff;
-    border-radius: 1rem;
+  background-color: #fff;
+  border-radius: 1rem;
 }
 
-.container .title{
-    font-size: 6rem;
-    font-family: "Inter-Medium";
+.container .title {
+  font-size: 6rem;
+  font-family: "Inter-Medium";
 }
 
-.container .image img{
-    max-height: 5rem;
+.container .image img {
+  max-height: 5rem;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    gap: 1rem;
+  }
+  .container .title {
+    font-size: 3rem;
+  }
+  .container .image img {
+    max-height: 2.5rem;
+  }
 }

@@ -1,5 +1,5 @@
-.cardContainer{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+.cardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
