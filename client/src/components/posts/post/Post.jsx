@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import {
   deletePostAction,
   getPostsAction,
+  likePostAction,
 } from "../../../actions/postsActions";
 
 function Post({ post, setSelectedId }) {
@@ -14,6 +15,10 @@ function Post({ post, setSelectedId }) {
 
   const clickDelete = (id) => {
     dispatch(deletePostAction(id));
+  };
+
+  const likePost = (id) => {
+    dispatch(likePostAction(id));
   };
 
   return (
@@ -44,7 +49,12 @@ function Post({ post, setSelectedId }) {
         <div className={Styles.title}>{post.title}</div>
         <div className={Styles.desc}>{post.message}</div>
         <div className={Styles.cardFooter}>
-          <div className={Styles.like}>
+          <div
+            className={Styles.like}
+            onClick={() => {
+              likePost(post._id);
+            }}
+          >
             <img src={likeIcon} alt="like" />
             <span>{post.likeCount}</span>
           </div>
@@ -54,7 +64,7 @@ function Post({ post, setSelectedId }) {
               clickDelete(post._id);
             }}
           >
-            <img src={deleteIcon} alt="like" />
+            <img src={deleteIcon} alt="delete" />
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import {
   deletePost,
   fetchAllProduct,
   getPost,
+  likePost,
   updatePost,
 } from "../api";
 
@@ -105,5 +106,20 @@ export const deletePostAction = (id) => async (dispatch) => {
     });
   }
 };
+export const likePostAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "LIKE_POST_REQUEST" });
 
+    const response = await likePost(id);
 
+    dispatch({
+      type: "LIKE_POST_SUCCESS",
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "LIKE_POST_FAIL",
+      payload: error,
+    });
+  }
+};

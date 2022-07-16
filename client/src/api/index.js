@@ -22,3 +22,7 @@ export const deletePost = async (id) => {
   return axios.delete(`${url}/${id}`);
 };
 
+export const likePost = async (id) => {
+  return axios.put(`${url}/${id}`);
+};
+
