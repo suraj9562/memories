@@ -1,12 +1,17 @@
 import Button from "../button/Button";
 import Styles from "./form.module.css";
 
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPostAction } from "../../actions/postsActions";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createPostAction,
+  getPostAction,
+  updatePostAction,
+} from "../../actions/postsActions";
 
-function Form() {
+function Form({ selectedId, setSelectedId }) {
   const dispatch = useDispatch();
+  const post = useSelector((state) => state.posts.fetchedPost);
 
   const [postData, setPostData] = useState({
     creator: "",
@@ -17,6 +22,7 @@ function Form() {
   });
 
   const [selectedFile, setSelectedFile] = useState("");
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -38,8 +44,17 @@ function Form() {
 
   const handleSubmit = () => {
     console.log(postData);
-    
-    dispatch(createPostAction(postData));
+    if (selectedId) {
+      if (!isUpdated) {
+        const tagsString = postData.tags.join(",");
+        postData["tags"] = tagsString;
+      }
+
+      dispatch(updatePostAction(selectedId, postData));
+    } else {
+      dispatch(createPostAction(postData));
+    }
+
     setToNull();
   };
 
@@ -53,11 +68,26 @@ function Form() {
     });
 
     setSelectedFile("");
+    setSelectedId(null);
+    setIsUpdated(false);
   };
+
+  useEffect(() => {
+    dispatch(getPostAction(selectedId));
+  }, [selectedId, dispatch]);
+
+  useEffect(() => {
+    if (post) {
+      setPostData(post);
+    }
+  }, [post]);
 
   return (
     <div className={Styles.container}>
-      <div className={Styles.title}>Add a Memory</div>
+      <div className={Styles.title}>
+        {" "}
+        {selectedId ? "Update" : "Add"} a Memory
+      </div>
       <form>
         <input
           name="creator"
@@ -90,7 +120,10 @@ function Form() {
           value={postData.tags}
           type="text"
           placeholder="Tags (Comma separated)"
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            setIsUpdated(true);
+          }}
         />
         <input
           type="file"

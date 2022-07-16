@@ -2,8 +2,9 @@ import Styles from "./post.module.css";
 import likeIcon from "./../../../assets/images/like.png";
 import deleteIcon from "./../../../assets/images/delete.png";
 import menuIcon from "./../../../assets/images/menu.svg";
+import moment from "moment";
 
-function Post({ post }) {
+function Post({ post, setSelectedId }) {
   return (
     <div className={Styles.card}>
       <div className={Styles.image}>
@@ -11,10 +12,18 @@ function Post({ post }) {
         <div className={Styles.overlay}>
           <div className={Styles.titleContainer}>
             <div className={Styles.title}>{post.creator}</div>
-            <div className={Styles.subtitle}>{post.createdAt}</div>
+            <div className={Styles.subtitle}>
+              {moment(post.createdAt).fromNow()}
+            </div>
           </div>
 
-          <img src={menuIcon} alt="menu" />
+          <img
+            src={menuIcon}
+            alt="menu"
+            onClick={() => {
+              setSelectedId(post._id);
+            }}
+          />
         </div>
       </div>
       <div className={Styles.content}>

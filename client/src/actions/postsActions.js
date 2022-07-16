@@ -1,4 +1,4 @@
-import { createPost, fetchAllProduct } from "../api";
+import { createPost, fetchAllProduct, getPost, updatePost } from "../api";
 
 export const getPostsAction = () => async (dispatch) => {
   try {
@@ -36,6 +36,46 @@ export const createPostAction = (newPost) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: "CREATE_POST_FAIL",
+      payload: error,
+    });
+  }
+};
+
+export const updatePostAction = (id, updatedPost) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "UPDATE_POST_REQUEST",
+    });
+
+    const response = await updatePost(id, updatedPost);
+
+    dispatch({
+      type: "UPDATE_POST_SUCCESS",
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "UPDATE_POST_FAIL",
+      payload: error,
+    });
+  }
+};
+
+export const getPostAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "GET_POST_REQUEST" });
+
+    const response = await getPost(id);
+
+    dispatch({
+      type: "GET_POST_SUCCESS",
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: "GET_POST_FAIL",
       payload: error,
     });
   }

@@ -6,6 +6,8 @@ export const getPostsReducer = (posts = [], action) => {
         posts: [],
       };
 
+    case "UPDATE_POST_REQUEST":
+    case "GET_POST_REQUEST":
     case "CREATE_POST_REQUEST":
       return {
         posts: posts.posts,
@@ -24,10 +26,34 @@ export const getPostsReducer = (posts = [], action) => {
         newPost: action.payload.data.newPost,
       };
 
+    case "GET_POST_SUCCESS":
+      return {
+        ...posts,
+        fetchedPost: action.payload.data.post,
+      };
+
+    case "UPDATE_POST_SUCCESS":
+      return {
+        ...posts,
+        updatedPost: action.payload.data,
+      };
+
     case "CREATE_POST_FAIL":
       return {
         posts: posts.posts,
         errorInCreating: action.payload,
+      };
+
+    case "GET_POST_FAIL":
+      return {
+        posts: posts.posts,
+        errorInFetchIng: action.payload,
+      };
+
+    case "UPDATE_POST_FAIL":
+      return {
+        posts: posts.posts,
+        errorInUpdating: action.payload,
       };
 
     case "ALL_PRODUCT_REQUEST_FAIL":

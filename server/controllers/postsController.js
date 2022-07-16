@@ -2,6 +2,9 @@ const catchAsync = require("./../utils/catchAsync");
 const Post = require("./../models/postModel");
 const cloudinary = require("cloudinary").v2;
 
+const AppError = require("./../utils/AppError");
+const { findByIdAndUpdate } = require("./../models/postModel");
+
 // get all posts
 exports.getPosts = catchAsync(async (req, res, next) => {
   const posts = await Post.find();
@@ -24,21 +27,32 @@ exports.deletePosts = catchAsync(async (req, res, next) => {
 
 // get particular post
 exports.getPost = catchAsync(async (req, res, next) => {
+  const id = req.params.id;
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return next(new AppError("Post not found", 404));
+  }
+
   res.status(200).json({
     status: "success",
-    data: {},
+    data: {
+      post,
+    },
   });
 });
 
 // create new post
 exports.createPost = catchAsync(async (req, res, next) => {
   const { creator, title, message, tags, selectedFile } = req.body;
-  console.log(tags);
+
   const myUploadedImg = await cloudinary.uploader.upload(selectedFile, {
     folder: "memories",
     quality: "auto",
     fetch_format: "auto",
   });
+
+  const tagsArray = tags.split(",");
 
   console.log(myUploadedImg);
 
@@ -46,7 +60,7 @@ exports.createPost = catchAsync(async (req, res, next) => {
     creator,
     title,
     message,
-    tags,
+    tags: tagsArray,
     selectedFile: {
       public_id: myUploadedImg.public_id,
       url: myUploadedImg.secure_url,
@@ -64,16 +78,56 @@ exports.createPost = catchAsync(async (req, res, next) => {
 
 // update previously existing post
 exports.updatePost = catchAsync(async (req, res, next) => {
+  const id = req.params.id;
+  const { creator, title, message, tags, selectedFile } = req.body;
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return next(new AppError("Post not found", 404));
+  }
+
+  let ImgObj;
+
+  if (!selectedFile.url) {
+    const myUploadedImg = await cloudinary.uploader.upload(selectedFile, {
+      folder: "memories",
+      quality: "auto",
+      fetch_format: "auto",
+    });
+
+    ImgObj = {
+      public_id: myUploadedImg.public_id,
+      url: myUploadedImg.secure_url,
+    };
+  } else {
+    ImgObj = selectedFile;
+  }
+
+  const tagsArray = tags.split(",");
+  post = await Post.findByIdAndUpdate(
+    id,
+    {
+      creator,
+      title,
+      message,
+      tags: tagsArray,
+      selectedFile: ImgObj,
+    },
+    { new: true }
+  );
+
   res.status(200).json({
     status: "success",
-    data: {},
+    data: { post },
   });
 });
 
 // delete previously existing post
 exports.deletePost = catchAsync(async (req, res, next) => {
-  res.status(200).json({
+  const id = req.params.id;
+
+  const post = await Post.findByIdAndDelete(id);
+  res.status(204).json({
     status: "success",
-    data: {},
   });
 });

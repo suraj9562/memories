@@ -3,26 +3,27 @@ import Header from "../components/header/Header";
 import Posts from "../components/posts/Posts";
 
 import Styles from "./landingPage.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPostsAction } from "../actions/postsActions";
 
 function LandingPage() {
   const dispatch = useDispatch();
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     dispatch(getPostsAction());
-  }, [dispatch]);
+  }, [selectedId, dispatch]);
 
   return (
     <div className={Styles.container}>
       <Header />
       <div className={Styles.grid}>
         <div className={Styles.posts}>
-          <Posts />
+          <Posts setSelectedId={setSelectedId} />
         </div>
         <div className={Styles.form}>
-          <Form />
+          <Form selectedId={selectedId} setSelectedId={setSelectedId} />
         </div>
       </div>
     </div>
