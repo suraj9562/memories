@@ -3,7 +3,6 @@ const Post = require("./../models/postModel");
 const cloudinary = require("cloudinary").v2;
 
 const AppError = require("./../utils/AppError");
-const { findByIdAndUpdate } = require("./../models/postModel");
 
 // get all posts
 exports.getPosts = catchAsync(async (req, res, next) => {
@@ -104,7 +103,7 @@ exports.updatePost = catchAsync(async (req, res, next) => {
   }
 
   const tagsArray = tags.split(",");
-  post = await Post.findByIdAndUpdate(
+  const updatedPost = await Post.findByIdAndUpdate(
     id,
     {
       creator,
@@ -116,9 +115,9 @@ exports.updatePost = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-  res.status(200).json({
+  res.status(201).json({
     status: "success",
-    data: { post },
+    data: { updatedPost },
   });
 });
 

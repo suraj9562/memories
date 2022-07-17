@@ -13,20 +13,22 @@ function LandingPage() {
 
   useEffect(() => {
     dispatch(getPostsAction());
-  }, [selectedId, dispatch]);
+  }, [dispatch]);
 
   return (
-    <div className={Styles.container}>
-      <Header />
-      <div className={Styles.grid}>
-        <div className={Styles.posts}>
-          <Posts setSelectedId={setSelectedId} />
-        </div>
-        <div className={Styles.form}>
-          <Form selectedId={selectedId} setSelectedId={setSelectedId} />
+    <>
+      <div className={Styles.container}>
+        <Header />
+        <div className={Styles.grid}>
+          <div className={Styles.posts}>
+            <Posts setSelectedId={setSelectedId} />
+          </div>
+          <div className={Styles.form}>
+            <Form selectedId={selectedId} setSelectedId={setSelectedId} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

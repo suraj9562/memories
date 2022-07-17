@@ -6,9 +6,9 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import {
   deletePostAction,
-  getPostsAction,
   likePostAction,
 } from "../../../actions/postsActions";
+import { Link } from "react-scroll";
 
 function Post({ post, setSelectedId }) {
   const dispatch = useDispatch();
@@ -33,13 +33,15 @@ function Post({ post, setSelectedId }) {
             </div>
           </div>
 
-          <img
-            src={menuIcon}
-            alt="menu"
-            onClick={() => {
-              setSelectedId(post._id);
-            }}
-          />
+          <Link to="form">
+            <img
+              src={menuIcon}
+              alt="menu"
+              onClick={() => {
+                setSelectedId(post._id);
+              }}
+            />
+          </Link>
         </div>
       </div>
       <div className={Styles.content}>

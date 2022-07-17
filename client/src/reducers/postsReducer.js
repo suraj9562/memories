@@ -34,17 +34,12 @@ export const getPostsReducer = (posts = [], action) => {
         fetchedPost: action.payload.data.post,
       };
 
-    case "UPDATE_POST_SUCCESS":
-      return {
-        ...posts,
-        updatedPost: action.payload.data,
-      };
-
     case "DELETE_POST_SUCCESS":
       return {
         posts: posts.posts.filter((post) => post._id !== action.payload._id),
       };
 
+    case "UPDATE_POST_SUCCESS":
     case "LIKE_POST_SUCCESS":
       return {
         posts: posts.posts.map((post) =>

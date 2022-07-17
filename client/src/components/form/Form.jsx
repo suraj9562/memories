@@ -5,11 +5,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createPostAction,
-  deletePostAction,
   getPostAction,
   updatePostAction,
 } from "../../actions/postsActions";
-import { fetchAllProduct } from "../../api";
 
 function Form({ selectedId, setSelectedId }) {
   const dispatch = useDispatch();
@@ -85,7 +83,7 @@ function Form({ selectedId, setSelectedId }) {
   }, [post]);
 
   return (
-    <div className={Styles.container}>
+    <div className={Styles.container} id="form">
       <div className={Styles.title}>
         {" "}
         {selectedId ? "Update" : "Add"} a Memory
